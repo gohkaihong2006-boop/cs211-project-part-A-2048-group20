@@ -4,6 +4,8 @@ using namespace std;
 
 int main()
 {
+	//Adding a difficulty slider might be a bit more of a pain than initially thought.
+	//Will try to add at later date
 	int size = 5;
 	int board[5][5] = {
 		{0, 4, 2, 4, 0},
