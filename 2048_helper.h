@@ -37,7 +37,7 @@ void move_left(int board[][5], int numrows = 5)
             int previous = c;
 
             // Move the tile as far left as possible
-            while (previous > 0 && board[r][previous] != 0 && board[r][previous - 1] == 0) {
+            while (previous > 0 && board[r][previous - 1] == 0) {
                 board[r][previous - 1] = board[r][previous];
                 board[r][previous] = 0;
                 previous--;
@@ -48,13 +48,6 @@ void move_left(int board[][5], int numrows = 5)
                 board[r][previous - 1] *= 2;
                 board[r][previous] = 0;
             }
-
-			while (previous > 0 && board[r][previous - 1] == 0) {
-                board[r][previous - 1] = board[r][previous];
-                board[r][previous] = 0;
-                previous--;
-            }
-
         }
     }
 }
