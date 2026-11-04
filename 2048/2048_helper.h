@@ -34,22 +34,30 @@ void move_left(int board[][5], int numrows = 5)
 void move_right(int board[][5], int numrows = 5)
 {
 	//WORKS PUT HAS AN ISSUE WHERE IT WRAPS DOWN
-	for (int r=0; r<numrows; r++) {
-		for (int c=5; c>0; c--) {
-			if (board[r][c+1]==board[r][c]) {
-				board[r][c+1]=board[r][c]*2;
-				board[r][c]=0;
-			}
-			else if (board[r][c+1]!=board[r][c]&& board[r][c+1]!=0){}
-			else if (board[r][c+1]==0) {
-				if (board[r][c+1]>=board[r][0]||board[r][c+1]<board[r][5]){
-					board[r][c+1]=board[r][c];
-				board[r][c]=0;
-				}
-			}
-		}
+	for (int r = 0; r < numrows; r++) {
 
-	}
+    for (int c = 4; c >= 0; c--) {
+
+        if (board[r][c] != 0) {
+
+            int next = c;
+
+            // Move the tile as far right as possible
+            while (next < 5 && board[r][next + 1] == 0) {
+                board[r][next + 1] = board[r][next];
+                board[r][next] = 0;
+                next++;
+            }
+
+            // Combine with the next tile if equal
+            if (next < 5 && board[r][next + 1] == board[r][next]) {
+
+                board[r][next + 1] *= 2;
+                board[r][next] = 0;
+            }
+        }
+    }
+}
 }
 
 void move_up(int board[][5], int numrows = 5)
