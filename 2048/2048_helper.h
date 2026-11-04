@@ -43,14 +43,14 @@ void move_right(int board[][5], int numrows = 5)
             int next = c;
 
             // Move the tile as far right as possible
-            while (next < 5 && board[r][next + 1] == 0) {
+            while (next < 4 && board[r][next + 1] == 0) {
                 board[r][next + 1] = board[r][next];
                 board[r][next] = 0;
                 next++;
             }
 
             // Combine with the next tile if equal
-            if (next < 5 && board[r][next + 1] == board[r][next]) {
+            if (next < 4 &&board[r][next + 1] == board[r][next]) {
 
                 board[r][next + 1] *= 2;
                 board[r][next] = 0;
