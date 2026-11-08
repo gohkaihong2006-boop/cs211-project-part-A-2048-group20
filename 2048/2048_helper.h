@@ -28,7 +28,30 @@ void dif(int difficulty) {
 
 void move_left(int board[][5], int numrows = 5)
 {
-	//CODE HERE
+	for (int r = 0; r < numrows; r++) {
+
+    for (int c = 1; c < 5; c++) {
+
+        if (board[r][c] != 0) {
+
+            int previous = c;
+
+            // Move the tile as far right as possible
+            while (previous > 0 && board[r][previous - 1] == 0) {
+                board[r][previous - 1] = board[r][previous];
+                board[r][previous] = 0;
+                previous--;
+            }
+
+            
+            if (previous > 0 && board[r][previous - 1] == board[r][previous]) {
+
+                board[r][previous - 1] *= 2;
+                board[r][previous] = 0;
+            }
+        }
+    }
+}
 }
 
 void move_right(int board[][5], int numrows = 5)
