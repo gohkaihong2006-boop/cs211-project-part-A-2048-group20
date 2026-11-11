@@ -90,8 +90,29 @@ void move_up(int board[][5], int numrows = 5)
 
 void move_down(int board[][5], int numrows = 5)
 {
-
-	//CODE HERE
+	for(int c = 0; c < numrows; c++)
+	{
+	    for(int r = 4; r >= 0; r--)
+	    {
+	        if(board[r][c] != 0)
+	        {
+	            int downnum = r;
+	        
+	            while(downnum < 4 && board[downnum + 1][c] == 0)
+	            {
+	                board[downnum + 1][c] = board[downnum][c];
+	                board[downnum][c] = 0;
+	                downnum++;
+	            }   
+	        
+	            if(downnum < 4 && board[downnum + 1][c] == board[downnum][c])
+	            {
+	                board[downnum + 1][c] *= 2;
+	                board[downnum][c] = 0;
+	            }
+	        }
+	    }
+	}
 }
 
 
