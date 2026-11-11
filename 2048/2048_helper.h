@@ -30,7 +30,7 @@ void move_left(int board[][5], int numrows = 5)
 {
 	for (int r = 0; r < numrows; r++) {
 
-    for (int c = 1; c < 5; c++) {
+    for (int c = 0; c < 5; c++) {
 
         if (board[r][c] != 0) {
 
