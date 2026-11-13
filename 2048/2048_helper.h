@@ -85,7 +85,29 @@ void move_right(int board[][5], int numrows = 5)
 
 void move_up(int board[][5], int numrows = 5)
 {
-	//CODE HERE
+	for(int c =0; c < numrows; c++)
+	{
+	    for(int r = 1; r < 5; r++)
+	    {
+	        if(board[r][c] != 0)
+	        {
+	            int upnum = r;
+	            
+	            while(upnum > 0 && board[upnum - 1][c] == 0)
+	            {
+	                board[upnum - 1][c] = board[upnum][c];
+	                board[upnum][c] = 0;
+	                upnum--;
+	            }
+	            
+	            if(upnum > 0 && board[upnum - 1][c] == board[upnum][c])
+	            {
+	                board[upnum - 1][c] *=2;
+	                board[upnum][c] = 0;
+	            }
+	        }
+	    }
+	}
 }
 
 void move_down(int board[][5], int numrows = 5)
