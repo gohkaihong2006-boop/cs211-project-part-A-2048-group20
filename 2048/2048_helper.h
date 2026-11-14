@@ -2,8 +2,7 @@
 #include <random>
 #include <iomanip>
 using namespace std;
-int currentnum=0;
-int pastnum=0;
+
 void dif(int difficulty) {
 	//If we plan to add in difficulty
 	cout<<"Please select your difficulty:"<<endl<<
