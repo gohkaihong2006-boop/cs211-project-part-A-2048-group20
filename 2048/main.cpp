@@ -66,7 +66,7 @@ int main()
 	while (choice != 'e')
 	{
 		cout << "Score: " << score << " Move: " << movecount << endl;
-		cout << "Please enter choice:{u,d,l,r,e} for UP, DOWN, LEFT, RIGHT, Exit: " << endl;
+		cout << "Please enter choice:{u,d,l,r,e,n} for UP, DOWN, LEFT, RIGHT, Exit, New game: " << endl;
 		cout << "Choice: ";
 		cin >> choice;
 		
