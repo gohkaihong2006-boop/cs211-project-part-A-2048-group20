@@ -26,117 +26,149 @@ void dif(int difficulty) {
 
 }
 
-void move_left(int board[][5], int numrows = 5)
+int move_left(int board[][5], int numrows = 5)
 {
+	int changed = 0;
+	gained = 0;
 	for (int r = 0; r < numrows; r++) {
 
-    for (int c = 0; c < 5; c++) {
+		int merged = -1;                   
+		for (int c = 0; c < 5; c++) {
 
-        if (board[r][c] != 0) {
+			if (board[r][c] != 0) {
 
-            int previous = c;
+				int previous = c;
 
-            // Move the tile as far right as possible
-            while (previous > 0 && board[r][previous - 1] == 0) {
-                board[r][previous - 1] = board[r][previous];
-                board[r][previous] = 0;
-                previous--;
-            }
+				// Move the tile as far left as possible
+				while (previous > 0 && board[r][previous - 1] == 0) {
+					board[r][previous - 1] = board[r][previous];
+					board[r][previous] = 0;
+					previous--;
+					changed = 1;
+				}
 
-            
-            if (previous > 0 && board[r][previous - 1] == board[r][previous]) {
-
-                board[r][previous - 1] *= 2;
-                board[r][previous] = 0;
-            }
-        }
-    }
+				// Combine with the previous tile if equal and it hasn't merged yet
+				if (previous > 0 && board[r][previous - 1] == board[r][previous] && merged != previous - 1) {
+					board[r][previous - 1] *= 2;
+					board[r][previous] = 0;
+					gained += board[r][previous - 1];
+					merged = previous - 1;
+					changed = 1;
+				}
+			}
+		}
+	}
+	return changed;
 }
-}
 
-void move_right(int board[][5], int numrows = 5)
+int move_right(int board[][5], int numrows = 5)
 {
-	//WORKS PUT HAS AN ISSUE WHERE IT WRAPS DOWN
+	int changed = 0;
+	gained = 0;
 	for (int r = 0; r < numrows; r++) {
 
-    for (int c = 4; c >= 0; c--) {
+		int merged = -1;                
+		for (int c = 4; c >= 0; c--) {
 
-        if (board[r][c] != 0) {
+			if (board[r][c] != 0) {
 
-            int next = c;
+				int next = c;
 
-            // Move the tile as far right as possible
-            while (next < 4 && board[r][next + 1] == 0) {
-                board[r][next + 1] = board[r][next];
-                board[r][next] = 0;
-                next++;
-            }
+				// Move the tile as far right as possible
+				while (next < 4 && board[r][next + 1] == 0) {
+					board[r][next + 1] = board[r][next];
+					board[r][next] = 0;
+					next++;
+					changed = 1;
+				}
 
-            // Combine with the next tile if equal
-            if (next < 4 &&board[r][next + 1] == board[r][next]) {
-
-                board[r][next + 1] *= 2;
-                board[r][next] = 0;
-            }
-        }
-    }
-}
-}
-
-void move_up(int board[][5], int numrows = 5)
-{
-	for(int c =0; c < numrows; c++)
-	{
-	    for(int r = 1; r < 5; r++)
-	    {
-	        if(board[r][c] != 0)
-	        {
-	            int upnum = r;
-	            
-	            while(upnum > 0 && board[upnum - 1][c] == 0)
-	            {
-	                board[upnum - 1][c] = board[upnum][c];
-	                board[upnum][c] = 0;
-	                upnum--;
-	            }
-	            
-	            if(upnum > 0 && board[upnum - 1][c] == board[upnum][c])
-	            {
-	                board[upnum - 1][c] *=2;
-	                board[upnum][c] = 0;
-	            }
-	        }
-	    }
+				// Combine with the next tile if equal and it hasn't merged yet
+				if (next < 4 && board[r][next + 1] == board[r][next] && merged != next + 1) {
+					board[r][next + 1] *= 2;
+					board[r][next] = 0;
+					gained += board[r][next + 1];
+					merged = next + 1;
+					changed = 1;
+				}
+			}
+		}
 	}
+	return changed;
 }
 
-void move_down(int board[][5], int numrows = 5)
+int move_up(int board[][5], int numrows = 5)
 {
-	for(int c = 0; c < numrows; c++)
+	int changed = 0;
+	gained = 0;
+	for (int c = 0; c < 5; c++)
 	{
-	    for(int r = 4; r >= 0; r--)
-	    {
-	        if(board[r][c] != 0)
-	        {
-	            int downnum = r;
-	        
-	            while(downnum < 4 && board[downnum + 1][c] == 0)
-	            {
-	                board[downnum + 1][c] = board[downnum][c];
-	                board[downnum][c] = 0;
-	                downnum++;
-	            }   
-	        
-	            if(downnum < 4 && board[downnum + 1][c] == board[downnum][c])
-	            {
-	                board[downnum + 1][c] *= 2;
-	                board[downnum][c] = 0;
-	            }
-	        }
-	    }
+		int merged = -1;                    
+		for (int r = 1; r < numrows; r++)
+		{
+			if (board[r][c] != 0)
+			{
+				int upnum = r;
+
+				// Move the tile as far up as possible
+				while (upnum > 0 && board[upnum - 1][c] == 0)
+				{
+					board[upnum - 1][c] = board[upnum][c];
+					board[upnum][c] = 0;
+					upnum--;
+					changed = 1;
+				}
+
+				// Combine with the tile above if equal and it hasn't merged yet
+				if (upnum > 0 && board[upnum - 1][c] == board[upnum][c] && merged != upnum - 1)
+				{
+					board[upnum - 1][c] *= 2;
+					board[upnum][c] = 0;
+					gained += board[upnum - 1][c];
+					merged = upnum - 1;
+					changed = 1;
+				}
+			}
+		}
 	}
+	return changed;
 }
 
+int move_down(int board[][5], int numrows = 5)
+{
+	int changed = 0;
+	gained = 0;
+	for (int c = 0; c < 5; c++)
+	{
+		int merged = -1;                    
+		for (int r = numrows - 1; r >= 0; r--)
+		{
+			if (board[r][c] != 0)
+			{
+				int downnum = r;
+
+				// Move the tile as far down as possible
+				while (downnum < numrows - 1 && board[downnum + 1][c] == 0)
+				{
+					board[downnum + 1][c] = board[downnum][c];
+					board[downnum][c] = 0;
+					downnum++;
+					changed = 1;
+				}
+
+				// Combine with the tile below if equal and it hasn't merged yet
+				if (downnum < numrows - 1 && board[downnum + 1][c] == board[downnum][c] && merged != downnum + 1)
+				{
+					board[downnum + 1][c] *= 2;
+					board[downnum][c] = 0;
+					gained += board[downnum + 1][c];
+					merged = downnum + 1;
+					changed = 1;
+				}
+			}
+		}
+	}
+	return changed;
+}
 
 void print_board(int board[][5], int numrows = 5)
 {
