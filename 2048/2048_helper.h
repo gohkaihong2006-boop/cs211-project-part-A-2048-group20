@@ -2,6 +2,9 @@
 #include <random>
 #include <iomanip>
 using namespace std;
+int currentnum=0;
+int pastnum=0;
+int gained = 0;
 
 void dif(int difficulty) {
 	//If we plan to add in difficulty
