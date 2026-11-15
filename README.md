@@ -1,6 +1,6 @@
 # cs211-project-part-A-2048-group20
 # Contributors:
-Kai Hong Go (gohkaihong2006-boop)
+Kai Hong Goh (gohkaihong2006-boop)
 
 Lukas Patton (LukasDaWolf)
 
