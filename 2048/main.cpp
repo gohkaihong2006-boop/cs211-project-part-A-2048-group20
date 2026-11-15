@@ -1,7 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include "2048_helper.h"
+#include <conio.h>
 using namespace std;
+const std::string saveFile = "saved_game(2048).txt";
 int has2048(int board[][5], int size)
 {
 	for(int r =0; r < size; r++)
@@ -39,28 +41,7 @@ int canmove(int board[][5], int size)
 	}
 	return 0;
 }
-bool saveGame(const std::string& filename, const std::vector<std::vector<int>>& board, int score) {
-	std::ofstream outFile(filename);
 
-	if (outFile.is_open()!=true) {
-		std::cerr << "Game Save Failed.\n";
-		return false;
-	}
-
-	// Save the score on the first line
-	outFile << score << "\n";
-
-	// Save the 4x4 matrix
-	for (int i = 0; i < 5; ++i) {
-		for (int j = 0; j < 5; ++j) {
-			outFile << board[i][j] << (j == 4 ? "" : " ");
-		}
-		outFile << "\n";
-	}
-
-	outFile.close();
-	return true;
-}
 
 int main()
 {
@@ -83,14 +64,15 @@ int main()
 
 	cout << "Initial Board : [5x5] :" << endl;
 	print_board(board);
-
-	char choice = 'w';	//initialized
-	while (choice != 'e')
+bool exit=false;
+char choice = 'w';		//initialized
+	while (exit != true)
 	{
 		cout << "Score: " << score << " Move: " << movecount << endl;
 		cout << "Please enter choice:{W,S,A,D,E,H,N} for UP, DOWN, LEFT, RIGHT, Exit, Help, Game Options: " << endl;
-		cout << "Choice: ";
-		cin >> choice;
+		cout << "Choice: "<<endl;
+		cin>>choice;
+
 		
 		if (choice == 'w' || choice == 's' || choice == 'a' || choice == 'd')
 		{
@@ -168,18 +150,30 @@ int main()
 				print_board(board);
 			}
 			else if (answer =='o') {
-
-
+//saves the board then reprints the current board
+				if (saveGame(board, score, "savegame.txt")) {
+					cout << "Saving Game"<<endl;
+				}
+				print_board(board);
 			}
 			else if (answer == 'l') {
+				//erases board
+				score = 0;
+				int board[5][5] = {0};
+				if (loadGame(board, score, "savegame.txt")) {
+					std::cout << "Game loaded! Score: " << score << "\n";
+				}
 
-
-
+//prints new board
+				print_board(board);
 			}
 			else if (answer == 'n') {
 				cout << "New game canceled." << endl;
 				print_board(board);
 			}
+		}
+		else if (choice=='e') {
+			exit=true;
 		}
 		else if(choice != 'e')
 		{
