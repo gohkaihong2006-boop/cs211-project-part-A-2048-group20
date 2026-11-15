@@ -6,35 +6,13 @@ int currentnum=0;
 int pastnum=0;
 int gained = 0;
 
-void dif(int difficulty) {
-	//If we plan to add in difficulty
-	cout<<"Please select your difficulty:"<<endl<<
-	"1- EASY"<<endl<<
-	"2- NORMAL"<<endl<<
-	"3- HARD"<<endl;
-	while(difficulty<1 || difficulty>3){
-		cin>>difficulty;
-	}
-	//SETS SIZE DEPENDING ON THE DIFFICULTY
-	if (difficulty==1){
-		difficulty=2;
-	}
-	else if(difficulty==2){
-		difficulty=5;
-	}
-	else{
-		difficulty=20;
-	}
-
-}
-
 int move_left(int board[][5], int numrows = 5)
 {
 	int changed = 0;
 	gained = 0;
 	for (int r = 0; r < numrows; r++) {
 
-		int merged = -1;                   
+		int merged = -1;
 		for (int c = 0; c < 5; c++) {
 
 			if (board[r][c] != 0) {
@@ -69,7 +47,7 @@ int move_right(int board[][5], int numrows = 5)
 	gained = 0;
 	for (int r = 0; r < numrows; r++) {
 
-		int merged = -1;                
+		int merged = -1;
 		for (int c = 4; c >= 0; c--) {
 
 			if (board[r][c] != 0) {
@@ -104,7 +82,7 @@ int move_up(int board[][5], int numrows = 5)
 	gained = 0;
 	for (int c = 0; c < 5; c++)
 	{
-		int merged = -1;                    
+		int merged = -1;
 		for (int r = 1; r < numrows; r++)
 		{
 			if (board[r][c] != 0)
@@ -141,7 +119,7 @@ int move_down(int board[][5], int numrows = 5)
 	gained = 0;
 	for (int c = 0; c < 5; c++)
 	{
-		int merged = -1;                    
+		int merged = -1;
 		for (int r = numrows - 1; r >= 0; r--)
 		{
 			if (board[r][c] != 0)

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "2048_helper.h"
 using namespace std;
 int has2048(int board[][5], int size)
@@ -38,7 +39,28 @@ int canmove(int board[][5], int size)
 	}
 	return 0;
 }
+bool saveGame(const std::string& filename, const std::vector<std::vector<int>>& board, int score) {
+	std::ofstream outFile(filename);
 
+	if (outFile.is_open()!=true) {
+		std::cerr << "Game Save Failed.\n";
+		return false;
+	}
+
+	// Save the score on the first line
+	outFile << score << "\n";
+
+	// Save the 4x4 matrix
+	for (int i = 0; i < 5; ++i) {
+		for (int j = 0; j < 5; ++j) {
+			outFile << board[i][j] << (j == 4 ? "" : " ");
+		}
+		outFile << "\n";
+	}
+
+	outFile.close();
+	return true;
+}
 
 int main()
 {
@@ -62,15 +84,15 @@ int main()
 	cout << "Initial Board : [5x5] :" << endl;
 	print_board(board);
 
-	char choice = 'u';	//initialized
+	char choice = 'w';	//initialized
 	while (choice != 'e')
 	{
 		cout << "Score: " << score << " Move: " << movecount << endl;
-		cout << "Please enter choice:{u,d,l,r,e,n} for UP, DOWN, LEFT, RIGHT, Exit, New game: " << endl;
+		cout << "Please enter choice:{W,S,A,D,E,H,N} for UP, DOWN, LEFT, RIGHT, Exit, Help, Game Options: " << endl;
 		cout << "Choice: ";
 		cin >> choice;
 		
-		if (choice == 'u' || choice == 'd' || choice == 'l' || choice == 'r')
+		if (choice == 'w' || choice == 's' || choice == 'a' || choice == 'd')
 		{
 			if (gameover == 1)
 			{
@@ -79,11 +101,11 @@ int main()
 			else
 			{
 				int moved = 0;
-				if (choice == 'u')
+				if (choice == 'w')
 					moved = move_up(board, size);
-				else if (choice == 'd')
+				else if (choice == 's')
 					moved = move_down(board, size);
-				else if (choice == 'l')
+				else if (choice == 'a')
 					moved = move_left(board, size);
 				else
 					moved = move_right(board, size);
@@ -115,16 +137,18 @@ int main()
 		else if(choice =='h')
 		{
 			cout << "Commands: " << endl;
-			cout << "  u / d / l / r : slide up, down, left, right" << endl;
-			cout << "  n : new game (asks for confirmation)" << endl;
+			cout << "  W / S / A / D : slide up, down, left, right" << endl;
+			cout << "  n : new/save/load game" << endl;
 			cout << "  h : show this help" << endl;
+			cout << "  O / L : Save game, Load game" << endl;
 			cout << "  e : exit" << endl;
 
 		}
 		else if(choice == 'n')
 		{
 			char answer;
-			cout << "Start a new game? Enter 'y' for yes or 'n' for no: ";
+			cout << "Start a new game? Enter 'y' for yes or 'n' for no: "<<endl<<
+				"Save Game 'o'"<<endl<<"Load Game 'l'"<<endl;
 			cin >> answer;
 			if(answer == 'y')
 			{
@@ -143,8 +167,18 @@ int main()
 				insert_random(board, size);
 				print_board(board);
 			}
-			else{
+			else if (answer =='o') {
+
+
+			}
+			else if (answer == 'l') {
+
+
+
+			}
+			else if (answer == 'n') {
 				cout << "New game canceled." << endl;
+				print_board(board);
 			}
 		}
 		else if(choice != 'e')
@@ -154,4 +188,3 @@ int main()
 	}
 	return 0;
 }
-		
