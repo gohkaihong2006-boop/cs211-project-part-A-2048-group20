@@ -57,14 +57,14 @@ int main()
 
 	int score = 0;
 	int movecount = 0;
-	int win = 0;
+	bool win = false;
 	int gameover =0;
 
 	cout << "Initial Board : [5x5] :" << endl;
 	print_board(board);
 bool exit=false;
 char choice = 'w';		//initialized
-	while (exit != true)
+	while (exit != true||win==false)
 	{
 		cout << "Score: " << score << " Move: " << movecount << endl;
 		cout << "Please enter choice:{W,S,A,D,E,H,N} for UP, DOWN, LEFT, RIGHT, Exit, Help, Game Options: " << endl;
@@ -97,10 +97,10 @@ char choice = 'w';		//initialized
 					insert_random(board, size);
 					print_board(board);
 
-					if (has2048(board, size) == 1 && win == 0)
+					if (has2048(board, size) == 1)
 					{
 						cout << "You win!" << endl;
-						win = 1;
+						win = true;
 					}
 					if (canmove(board, size) == 0)
 					{
@@ -149,7 +149,7 @@ char choice = 'w';		//initialized
 			}
 			else if (answer =='o') {
 //saves the board then reprints the current board
-				if (saveGame(board, score, movecount, "savedgamed.txt")) {
+				if (saveGame(board, score, movecount, "savedgame.txt")) {
 					cout << "Saving Game"<<endl;
 				}
 				print_board(board);
@@ -157,7 +157,6 @@ char choice = 'w';		//initialized
 			else if (answer == 'l') {
 				//erases board
 				score = 0;
-				int board[5][5] = {0};
 				if (loadGame(board, score, movecount, "savedgame.txt")) {
 					std::cout << "Game loaded! Score: " << score << "\n";
 				}
