@@ -158,7 +158,7 @@ char choice = 'w';		//initialized
 				//erases board
 				score = 0;
 				int board[5][5] = {0};
-				if (loadGame(board, score, movecount, "savegamed.txt")) {
+				if (loadGame(board, score, movecount, "savedgame.txt")) {
 					std::cout << "Game loaded! Score: " << score << "\n";
 				}
 
