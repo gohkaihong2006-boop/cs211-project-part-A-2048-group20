@@ -3,7 +3,6 @@
 #include "2048_helper.h"
 
 using namespace std;
-const std::string saveFile = "saved_game(2048).txt";
 int has2048(int board[][5], int size)
 {
 	for(int r =0; r < size; r++)
@@ -150,7 +149,7 @@ char choice = 'w';		//initialized
 			}
 			else if (answer =='o') {
 //saves the board then reprints the current board
-				if (saveGame(board, score, movecount, "savegame.txt")) {
+				if (saveGame(board, score, movecount, "savedgame.txt")) {
 					cout << "Saving Game"<<endl;
 				}
 				print_board(board);
