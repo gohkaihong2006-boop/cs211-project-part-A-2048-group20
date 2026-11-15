@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "2048_helper.h"
-#include <conio.h>
+
 using namespace std;
 const std::string saveFile = "saved_game(2048).txt";
 int has2048(int board[][5], int size)
@@ -60,7 +60,6 @@ int main()
 	int movecount = 0;
 	int win = 0;
 	int gameover =0;
-	//while getch == x loop for up down left right
 
 	cout << "Initial Board : [5x5] :" << endl;
 	print_board(board);
@@ -151,7 +150,7 @@ char choice = 'w';		//initialized
 			}
 			else if (answer =='o') {
 //saves the board then reprints the current board
-				if (saveGame(board, score, "savegame.txt")) {
+				if (saveGame(board, score, movecount, "savegame.txt")) {
 					cout << "Saving Game"<<endl;
 				}
 				print_board(board);
@@ -160,7 +159,7 @@ char choice = 'w';		//initialized
 				//erases board
 				score = 0;
 				int board[5][5] = {0};
-				if (loadGame(board, score, "savegame.txt")) {
+				if (loadGame(board, score, movecount, "savegame.txt")) {
 					std::cout << "Game loaded! Score: " << score << "\n";
 				}
 

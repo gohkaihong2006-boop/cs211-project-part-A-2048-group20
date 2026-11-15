@@ -1,7 +1,7 @@
 #include <iostream>
 #include <random>
 #include <iomanip>
-#include <vector>
+
 using namespace std;
 int currentnum=0;
 int pastnum=0;
@@ -208,7 +208,7 @@ void insert_random(int board[][5], int numrows = 5)
 }
 //Game Saving
 
-bool saveGame(const int board[5][5], int score, const char* filename) {
+bool saveGame(const int board[5][5], int score, int movecount, const char* filename) {
 	std::ofstream outFile(filename);
 	if (!outFile) {
 		return false;
@@ -217,6 +217,8 @@ bool saveGame(const int board[5][5], int score, const char* filename) {
 
 	// Write the score on the first line
 	outFile << score << "\n";
+	//Saves the Moves
+	outFile << movecount << "\n";
 
 	// Write the 2D array row by row
 	for (int i = 0; i < 5; ++i) {
@@ -230,7 +232,7 @@ bool saveGame(const int board[5][5], int score, const char* filename) {
 	return true;
 }
 //Game Loading
-bool loadGame(int board[5][5], int& score, const char* filename) {
+bool loadGame(int board[5][5], int& score, int& movecount, const char* filename) {
 	std::ifstream inFile(filename);
 	if (!inFile) {
 		return false; // Save file does not exist or cannot be opened
@@ -238,14 +240,20 @@ bool loadGame(int board[5][5], int& score, const char* filename) {
 
 	// Read the score first
 	if (!(inFile >> score)) {
+		cout<<"Error Loading File"<<endl;
+		return false; // Corrupted file
+	}
+	if (!(inFile >> movecount)) {
+		cout<<"Error Loading File"<<endl;
 		return false; // Corrupted file
 	}
 
-	// Read the numbers back into the 2D array
+	//Loads Saved Game
 	for (int i = 0; i < 5; ++i) {
 		for (int j = 0; j < 5; ++j) {
 			if (!(inFile >> board[i][j])) {
-				return false; // File ended unexpectedly or invalid data
+				cout<<"Error Loading File"<<endl;
+				return false;
 			}
 		}
 	}
