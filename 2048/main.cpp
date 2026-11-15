@@ -149,7 +149,7 @@ char choice = 'w';		//initialized
 			}
 			else if (answer =='o') {
 //saves the board then reprints the current board
-				if (saveGame(board, score, movecount, "savedgame.txt")) {
+				if (saveGame(board, score, movecount, "savedgamed.txt")) {
 					cout << "Saving Game"<<endl;
 				}
 				print_board(board);
@@ -158,7 +158,7 @@ char choice = 'w';		//initialized
 				//erases board
 				score = 0;
 				int board[5][5] = {0};
-				if (loadGame(board, score, movecount, "savegame.txt")) {
+				if (loadGame(board, score, movecount, "savegamed.txt")) {
 					std::cout << "Game loaded! Score: " << score << "\n";
 				}
 
